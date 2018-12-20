@@ -11,14 +11,14 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
 @JsonInclude(Include.NON_EMPTY)
-public class GrammaticalCaseWordForms {
+public class GrammaticalCaseSuffices {
 
 	private final List<String> nominative;
 	private final List<String> genitive;
 	private final List<String> dative;
 	private final List<String> accusative;
 
-	public GrammaticalCaseWordForms(List<String> nominative, List<String> genitive, List<String> dative,
+	public GrammaticalCaseSuffices(List<String> nominative, List<String> genitive, List<String> dative,
 			List<String> accusative) {
 		this.nominative = nominative == null ? null : Collections.unmodifiableList(new ArrayList<>(nominative));
 		this.genitive = genitive == null ? null : Collections.unmodifiableList(new ArrayList<>(genitive));
@@ -62,7 +62,7 @@ public class GrammaticalCaseWordForms {
 		if (getClass() != object.getClass()) {
 			return false;
 		}
-		GrammaticalCaseWordForms that = (GrammaticalCaseWordForms) object;
+		GrammaticalCaseSuffices that = (GrammaticalCaseSuffices) object;
 		return Objects.equals(this.nominative, that.nominative) && Objects.equals(this.genitive, that.genitive)
 				&& Objects.equals(this.dative, that.dative) && Objects.equals(this.accusative, that.accusative);
 	}

@@ -10,20 +10,27 @@ import de.tudarmstadt.ukp.jwktl.api.util.GrammaticalGender;
 public class InflectionGroup {
 
 	private final GrammaticalGender grammaticalGender;
-	private final GrammaticalCaseWordForms forms;
+	private final String root;
+	private final GrammaticalCaseSuffices sufficies;
 
-	public InflectionGroup(GrammaticalGender grammaticalGender, GrammaticalCaseWordForms sufficies) {
+	public InflectionGroup(GrammaticalGender grammaticalGender, String root, GrammaticalCaseSuffices sufficies) {
 		this.grammaticalGender = grammaticalGender;
-		this.forms = sufficies;
+		this.root = root;
+		this.sufficies = sufficies;
 	}
 
 	@JsonProperty("gender")
 	public GrammaticalGender getGrammaticalGender() {
 		return grammaticalGender;
 	}
-
-	@JsonProperty("forms")
-	public GrammaticalCaseWordForms getForms() {
-		return forms;
+	
+	@JsonProperty("root")
+	public String getRoot() {
+		return root;
+	}
+	
+	@JsonProperty("sufficies")
+	public GrammaticalCaseSuffices getSufficies() {
+		return sufficies;
 	}
 }

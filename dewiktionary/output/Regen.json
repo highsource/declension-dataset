@@ -3,22 +3,24 @@
 	"singular": [
 		{
 			"gender": "M",
-			"forms": {
-				"nominative": "Regen",
-				"genitive": "Regens",
-				"dative": "Regen",
-				"accusative": "Regen"
+			"root": "Regen",
+			"suffices": {
+				"n": "",
+				"g": "s",
+				"d": "",
+				"a": ""
 			}
 		}
 	],
 	"plural": [
 		{
 			"gender": "M",
-			"forms": {
-				"nominative": "Regen",
-				"genitive": "Regen",
-				"dative": "Regen",
-				"accusative": "Regen"
+			"root": "Regen",
+			"suffices": {
+				"n": "",
+				"g": "",
+				"d": "",
+				"a": ""
 			}
 		}
 	]

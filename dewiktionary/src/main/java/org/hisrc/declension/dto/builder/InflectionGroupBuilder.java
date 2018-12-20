@@ -5,9 +5,11 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
-import org.hisrc.declension.dto.GrammaticalCaseWordForms;
+import org.hisrc.declension.dto.GrammaticalCaseSuffices;
 import org.hisrc.declension.dto.InflectionGroup;
+import org.hisrc.declension.util.Trie;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -114,9 +116,32 @@ public class InflectionGroupBuilder {
 			return null;
 		} else {
 
-			final GrammaticalCaseWordForms forms = new GrammaticalCaseWordForms(nominative, genitive, dative,
-					accusative);
-			return new InflectionGroup(getGender(), forms);
+			final Trie wordForms = new Trie();
+
+			nominative.stream().forEach(wordForms::add);
+			genitive.stream().forEach(wordForms::add);
+			dative.stream().forEach(wordForms::add);
+			accusative.stream().forEach(wordForms::add);
+
+			final String root = wordForms.getCommonPrefix();
+
+			List<String> n = nominative.stream().map(s -> s.substring(root.length())).collect(Collectors.toList());
+			List<String> g = genitive.stream().map(s -> s.substring(root.length())).collect(Collectors.toList());
+			List<String> d = dative.stream().map(s -> s.substring(root.length())).collect(Collectors.toList());
+			List<String> a = accusative.stream().map(s -> s.substring(root.length())).collect(Collectors.toList());
+
+			n = n.equals(SINGLE_EMPTY_STRING) ? null : n;
+			g = g.equals(SINGLE_EMPTY_STRING) ? null : g;
+			d = d.equals(SINGLE_EMPTY_STRING) ? null : d;
+			a = a.equals(SINGLE_EMPTY_STRING) ? null : a;
+
+			final GrammaticalCaseSuffices su;
+			if (n == null && g == null && d == null && a == null) {
+				su = null;
+			} else {
+				su = new GrammaticalCaseSuffices(n, g, d, a);
+			}
+			return new InflectionGroup(getGender(), root, su);
 		}
 	}
 }

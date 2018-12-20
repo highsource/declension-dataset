@@ -6,7 +6,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.atomic.AtomicInteger;
 
-import org.hisrc.declension.dto.GrammaticalCaseWordForms;
+import org.hisrc.declension.dto.GrammaticalCaseSuffices;
 import org.hisrc.declension.dto.Inflection;
 import org.hisrc.declension.dto.InflectionGroup;
 import org.hisrc.declension.jackson.databind.GenericJsonSerializer;
@@ -29,16 +29,16 @@ public class ExecuteWiktionaryEntryInflectionProducer {
 		final GenericJsonSerializer<Inflection> serializer = new GenericJsonSerializer<>(Inflection.class, outputFile);
 		serializer.start();
 
-		final Map<GrammaticalCaseWordForms, AtomicInteger> singularSuffices = new HashMap<>();
-		final Map<GrammaticalCaseWordForms, AtomicInteger> pluralSuffices = new HashMap<>();
+		final Map<GrammaticalCaseSuffices, AtomicInteger> singularSuffices = new HashMap<>();
+		final Map<GrammaticalCaseSuffices, AtomicInteger> pluralSuffices = new HashMap<>();
 
 		try (IWiktionaryEdition wkt = JWKTL.openEdition(wiktionaryDirectory)) {
 			final WiktionaryEntryInflectionProducer producer = new WiktionaryEntryInflectionProducer(wkt);
 			producer.process(inflection -> {
 				serializer.serialize(inflection);
-				inflection.getSingular().stream().map(InflectionGroup::getForms).forEach(
+				inflection.getSingular().stream().map(InflectionGroup::getSufficies).forEach(
 						s -> singularSuffices.computeIfAbsent(s, key -> new AtomicInteger()).incrementAndGet());
-				inflection.getPlural().stream().map(InflectionGroup::getForms).forEach(
+				inflection.getPlural().stream().map(InflectionGroup::getSufficies).forEach(
 						s -> pluralSuffices.computeIfAbsent(s, key -> new AtomicInteger()).incrementAndGet());
 			});
 		}
