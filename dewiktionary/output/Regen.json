@@ -1,0 +1,25 @@
+{
+	"word": "Regen",
+	"singular": [
+		{
+			"gender": "M",
+			"forms": {
+				"nominative": "Regen",
+				"genitive": "Regens",
+				"dative": "Regen",
+				"accusative": "Regen"
+			}
+		}
+	],
+	"plural": [
+		{
+			"gender": "M",
+			"forms": {
+				"nominative": "Regen",
+				"genitive": "Regen",
+				"dative": "Regen",
+				"accusative": "Regen"
+			}
+		}
+	]
+}

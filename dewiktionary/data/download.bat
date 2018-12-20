@@ -1,0 +1,2 @@
+wget --no-check-certificate https://dumps.wikimedia.org/dewiktionary/20180801/dewiktionary-20180801-pages-articles.xml.bz2
+wget --no-check-certificate https://dumps.wikimedia.org/dewiktionary/20181201/dewiktionary-20181201-pages-articles.xml.bz2
