@@ -36,9 +36,9 @@ public class ExecuteWiktionaryEntryInflectionProducer {
 			final WiktionaryEntryInflectionProducer producer = new WiktionaryEntryInflectionProducer(wkt);
 			producer.process(inflection -> {
 				serializer.serialize(inflection);
-				inflection.getSingular().stream().map(InflectionGroup::getSufficies).forEach(
+				inflection.getSingular().stream().map(InflectionGroup::getSuffixes).forEach(
 						s -> singularSuffices.computeIfAbsent(s, key -> new AtomicInteger()).incrementAndGet());
-				inflection.getPlural().stream().map(InflectionGroup::getSufficies).forEach(
+				inflection.getPlural().stream().map(InflectionGroup::getSuffixes).forEach(
 						s -> pluralSuffices.computeIfAbsent(s, key -> new AtomicInteger()).incrementAndGet());
 			});
 		}

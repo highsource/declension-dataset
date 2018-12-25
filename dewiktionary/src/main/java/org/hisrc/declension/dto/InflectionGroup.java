@@ -11,12 +11,12 @@ public class InflectionGroup {
 
 	private final GrammaticalGender grammaticalGender;
 	private final String root;
-	private final GrammaticalCaseSuffices sufficies;
+	private final GrammaticalCaseSuffices suffixes;
 
-	public InflectionGroup(GrammaticalGender grammaticalGender, String root, GrammaticalCaseSuffices sufficies) {
+	public InflectionGroup(GrammaticalGender grammaticalGender, String root, GrammaticalCaseSuffices suffixes) {
 		this.grammaticalGender = grammaticalGender;
 		this.root = root;
-		this.sufficies = sufficies;
+		this.suffixes = suffixes;
 	}
 
 	@JsonProperty("gender")
@@ -29,8 +29,8 @@ public class InflectionGroup {
 		return root;
 	}
 	
-	@JsonProperty("sufficies")
-	public GrammaticalCaseSuffices getSufficies() {
-		return sufficies;
+	@JsonProperty("suffixes")
+	public GrammaticalCaseSuffices getSuffixes() {
+		return suffixes;
 	}
 }
