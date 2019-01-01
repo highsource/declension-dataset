@@ -9,6 +9,7 @@ import de.tudarmstadt.ukp.jwktl.api.util.Language;
 public class IWiktionaryEntryPredicates {
 
 	public static final Predicate<IWiktionaryEntry> HAS_NO_SPACES = entry -> (!entry.getWord().contains(" "));
+	public static final Predicate<IWiktionaryEntry> HAS_NO_COMMAS = entry -> (!entry.getWord().contains(","));
 	public static final Predicate<IWiktionaryEntry> GERMAN_WORD = entry -> Language.equals(entry.getWordLanguage(), Language.GERMAN);
 	public static final Predicate<IWiktionaryEntry> NOUN = entry -> entry.getPartsOfSpeech().contains(PartOfSpeech.NOUN);
 	public static final Predicate<IWiktionaryEntry> NOT_TOPONYM = entry -> !entry.getPartsOfSpeech().contains(PartOfSpeech.TOPONYM);

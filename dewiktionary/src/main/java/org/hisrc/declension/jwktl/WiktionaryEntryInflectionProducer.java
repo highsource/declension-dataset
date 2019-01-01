@@ -2,6 +2,7 @@ package org.hisrc.declension.jwktl;
 
 import static org.hisrc.declension.jwktl.IWiktionaryEntryPredicates.GERMAN_WORD;
 import static org.hisrc.declension.jwktl.IWiktionaryEntryPredicates.HAS_NO_SPACES;
+import static org.hisrc.declension.jwktl.IWiktionaryEntryPredicates.HAS_NO_COMMAS;
 import static org.hisrc.declension.jwktl.IWiktionaryEntryPredicates.HAS_WORD_FORMS;
 import static org.hisrc.declension.jwktl.IWiktionaryEntryPredicates.NOT_FIRST_NAME;
 import static org.hisrc.declension.jwktl.IWiktionaryEntryPredicates.NOT_LAST_NAME;
@@ -35,7 +36,7 @@ public class WiktionaryEntryInflectionProducer {
 
 	private final IWiktionaryEdition wiktionaryEdition;
 
-	private static final IWiktionaryEntryFilter ENTRY_FILTER = new PredicateBasedWiktionaryEntryFilter(HAS_NO_SPACES,
+	private static final IWiktionaryEntryFilter ENTRY_FILTER = new PredicateBasedWiktionaryEntryFilter(HAS_NO_SPACES, HAS_NO_COMMAS,
 			GERMAN_WORD, NOUN, NOT_TOPONYM, NOT_FIRST_NAME, NOT_LAST_NAME, NOT_PROPER_NOUN, HAS_WORD_FORMS);
 
 	public WiktionaryEntryInflectionProducer(IWiktionaryEdition wiktionaryEdition) {

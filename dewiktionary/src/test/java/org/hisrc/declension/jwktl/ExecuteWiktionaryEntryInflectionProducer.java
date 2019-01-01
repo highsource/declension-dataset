@@ -1,16 +1,18 @@
 package org.hisrc.declension.jwktl;
 
 import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
+import java.util.TreeSet;
 import java.util.concurrent.atomic.AtomicInteger;
 
 import org.hisrc.declension.dto.GrammaticalCaseSuffices;
 import org.hisrc.declension.dto.Inflection;
 import org.hisrc.declension.dto.InflectionGroup;
 import org.hisrc.declension.jackson.databind.GenericJsonSerializer;
-import org.hisrc.declension.jwktl.WiktionaryEntryInflectionProducer;
 import org.junit.Test;
 
 import de.tudarmstadt.ukp.jwktl.JWKTL;
@@ -26,6 +28,9 @@ public class ExecuteWiktionaryEntryInflectionProducer {
 		File wiktionaryDirectory = new File(TARGET_DIRECTORY);
 
 		File outputFile = new File("dataset.json");
+		File outputCsvFile = new File("dataset.csv");
+		Set<String> words = new TreeSet<>();
+		final FileWriter few = new FileWriter(outputCsvFile);
 		final GenericJsonSerializer<Inflection> serializer = new GenericJsonSerializer<>(Inflection.class, outputFile);
 		serializer.start();
 
@@ -36,12 +41,22 @@ public class ExecuteWiktionaryEntryInflectionProducer {
 			final WiktionaryEntryInflectionProducer producer = new WiktionaryEntryInflectionProducer(wkt);
 			producer.process(inflection -> {
 				serializer.serialize(inflection);
+				try {
+					final String word = inflection.getWord();
+					if (words.add(word)) {
+						few.append(word+",\n");
+					}
+				}
+				catch(IOException ioex) {
+					ioex.printStackTrace();
+				}
 				inflection.getSingular().stream().map(InflectionGroup::getSuffixes).forEach(
 						s -> singularSuffices.computeIfAbsent(s, key -> new AtomicInteger()).incrementAndGet());
 				inflection.getPlural().stream().map(InflectionGroup::getSuffixes).forEach(
 						s -> pluralSuffices.computeIfAbsent(s, key -> new AtomicInteger()).incrementAndGet());
 			});
 		}
+		few.close();
 		serializer.end();
 		singularSuffices.entrySet().stream().forEach(e -> System.out.println(e.getKey() + "=" + e.getValue().get()));
 		System.out.println();
