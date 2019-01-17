@@ -4,16 +4,12 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
-import java.util.Map.Entry;
 import java.util.Set;
 import java.util.TreeSet;
 import java.util.concurrent.atomic.AtomicInteger;
-import java.util.stream.Collectors;
 
 import org.hisrc.declension.dto.GrammaticalCaseSuffices;
 import org.hisrc.declension.dto.Inflection;
@@ -49,24 +45,15 @@ public class ExecuteWiktionaryEntryInflectionProducer {
 			producer.process(inflections::add);
 		}
 
-		Set<String> allWords = inflections.stream().map(Inflection::getWord).collect(Collectors.toSet());
-
-		Set<String> longerLowercaseWords = allWords.stream().filter(w -> w.length() >= 4).map(String::toLowerCase)
-				.collect(Collectors.toSet());
-
 		Set<String> words = new TreeSet<>();
 		inflections.stream().forEach(inflection -> {
+			
+			if (inflection.getDeterminatum() != null) {
+				return;
+			}
+			
 
 			final String word = inflection.getWord();
-			final String lowercaseWord = word.toLowerCase();
-
-			for (int suffixBeginIndex = 1; suffixBeginIndex < lowercaseWord.length(); suffixBeginIndex++) {
-				String suffix = lowercaseWord.substring(suffixBeginIndex);
-				if (longerLowercaseWords.contains(suffix)) {
-					System.out.println("Ignoring " + word + " due to suffix " + suffix + ".");
-					return;
-				}
-			}
 
 			serializer.serialize(inflection);
 			try {

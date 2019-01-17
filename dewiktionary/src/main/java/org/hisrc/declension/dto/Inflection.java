@@ -13,14 +13,20 @@ import com.fasterxml.jackson.annotation.JsonInclude.Include;
 public class Inflection {
 
 	private final String word;
+	private final String determinatum;
 	private final List<InflectionGroup> singular;
 	private final List<InflectionGroup> plural;
 
-	public Inflection(final String word, List<InflectionGroup> singular, List<InflectionGroup> plural) {
+	public Inflection(String word, List<InflectionGroup> singular, List<InflectionGroup> plural) {
+		this(word, null, singular, plural);
+	}
+
+	public Inflection(final String word, String determinatum, List<InflectionGroup> singular, List<InflectionGroup> plural) {
 		Objects.requireNonNull(word, "word must not be null");
 		Objects.requireNonNull(singular, "singular must not be null");
 		Objects.requireNonNull(plural, "plural must not be null");
 		this.word = word;
+		this.determinatum = determinatum;
 		this.singular = Collections.unmodifiableList(new ArrayList<>(singular));
 		this.plural = Collections.unmodifiableList(new ArrayList<>(plural));
 	}
@@ -28,6 +34,11 @@ public class Inflection {
 	@JsonProperty("word")
 	public String getWord() {
 		return word;
+	}
+	
+	@JsonProperty("determinatum")
+	public String getDeterminatum() {
+		return determinatum;
 	}
 	
 	@JsonProperty("singular")

@@ -13,6 +13,7 @@ import java.util.stream.Collectors;
 import org.hisrc.declension.dto.Inflection;
 import org.hisrc.declension.dto.InflectionGroup;
 
+import de.tudarmstadt.ukp.jwktl.api.IWikiString;
 import de.tudarmstadt.ukp.jwktl.api.IWiktionaryEntry;
 import de.tudarmstadt.ukp.jwktl.api.IWiktionaryWordForm;
 import de.tudarmstadt.ukp.jwktl.api.util.GrammaticalNumber;
@@ -42,9 +43,26 @@ public class InflectionBuilder {
 				.map(InflectionGroupBuilder::build).filter(Objects::nonNull).collect(Collectors.toList());
 		List<InflectionGroup> plural = getInflectionGroups(GrammaticalNumber.PLURAL).stream()
 				.map(InflectionGroupBuilder::build).filter(Objects::nonNull).collect(Collectors.toList());
-
-		return new Inflection(entry.getWord(), singular, plural);
+		
+		return new Inflection(entry.getWord(), getDeterminatum(), singular, plural);
 	}
+	
+	public String getDeterminatum()  {
+		IWikiString wordEtymology = entry.getWordEtymology();
+		String word = entry.getWord();
+		
+		if (wordEtymology != null && wordEtymology.toString().toLowerCase().contains("determinativkompositum")) {
+			Set<String> links = new HashSet<>(wordEtymology.getWikiLinks());
+			for (String link : links) {
+				if (word.toLowerCase().endsWith(link.toLowerCase())) {
+					return link;
+				}
+			}
+		}
+		return null;
+	}
+	
+	
 
 	public void addWordForm(IWiktionaryWordForm wordForm) {
 		Objects.requireNonNull(wordForm, "wordForm must not be null.");
