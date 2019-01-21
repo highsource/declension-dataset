@@ -1,0 +1,1 @@
+Download and unpack [DeReKo-2014-II-MainArchive-STT.100000.freq.7z](http://www1.ids-mannheim.de/fileadmin/kl/derewo/DeReKo-2014-II-MainArchive-STT.100000.freq.7z) from [DeReWo – Korpusbasierte Grund-/Wortformenlisten](http://www1.ids-mannheim.de/kl/projekte/methoden/derewo.html).

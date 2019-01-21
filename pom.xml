@@ -16,6 +16,7 @@
 		<developerConnection>scm:git:git@github.com:highsource/declension-dataset.git</developerConnection>
 	</scm>
 	<modules>
+		<module>dereko</module>
 		<module>dewiktionary</module>
 	</modules>
 	<dependencies>
@@ -40,6 +41,11 @@
 			<dependency>
 				<groupId>com.fasterxml.jackson.core</groupId>
 				<artifactId>jackson-databind</artifactId>
+				<version>${jackson.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.fasterxml.jackson.dataformat</groupId>
+				<artifactId>jackson-dataformat-csv</artifactId>
 				<version>${jackson.version}</version>
 			</dependency>
 			<dependency>
