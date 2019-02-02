@@ -2,6 +2,7 @@ package org.hisrc.declension.dto.builder;
 
 import java.text.MessageFormat;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -33,7 +34,7 @@ public class InflectionBuilder {
 		this.entry = entry;
 		if (entry.getWordForms() != null) {
 			entry.getWordForms().stream().filter(wordForm -> wordForm.getNumber() != null)
-					.filter(wordForm -> wordForm.getCase() != null).forEach(this::addWordForm);
+					.filter(wordForm -> wordForm.getCase() != null).forEachOrdered(this::addWordForm);
 		}
 	}
 
@@ -102,16 +103,11 @@ public class InflectionBuilder {
 
 		return inflectionGroupBuilders.values().stream()
 				.filter(inflectionGroupBuilder -> inflectionGroupBuilder.getInflectionGroupId().getNumber() == number)
+				.sorted(Comparator.<InflectionGroupBuilder>comparingInt(inflectionGroupBuilder -> inflectionGroupBuilder.getInflectionGroupId().getInflectionGroup()))
 				.collect(Collectors.toList());
 	}
 
 	public InflectionGroupBuilder getInflectionGroup(GrammaticalNumber number, int index) {
-		final InflectionGroupId id = new InflectionGroupId(number, index);
-		final InflectionGroupBuilder inflectionGroup = inflectionGroupBuilders.get(id);
-		return inflectionGroup;
-	}
-
-	public InflectionGroupBuilder getInflectionGroupSize(GrammaticalNumber number, int index) {
 		final InflectionGroupId id = new InflectionGroupId(number, index);
 		final InflectionGroupBuilder inflectionGroup = inflectionGroupBuilders.get(id);
 		return inflectionGroup;

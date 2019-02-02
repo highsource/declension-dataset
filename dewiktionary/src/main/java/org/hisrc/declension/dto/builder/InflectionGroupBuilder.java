@@ -118,10 +118,10 @@ public class InflectionGroupBuilder {
 
 			final Trie wordForms = new Trie();
 
-			nominative.stream().forEach(wordForms::add);
-			genitive.stream().forEach(wordForms::add);
-			dative.stream().forEach(wordForms::add);
-			accusative.stream().forEach(wordForms::add);
+			nominative.stream().forEachOrdered(wordForms::add);
+			genitive.stream().forEachOrdered(wordForms::add);
+			dative.stream().forEachOrdered(wordForms::add);
+			accusative.stream().forEachOrdered(wordForms::add);
 
 			final String root = wordForms.getCommonPrefix();
 

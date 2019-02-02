@@ -64,7 +64,7 @@ public class WiktionaryEntryInflectionProducer {
 						LOGGER.warning("Word [" + inflection.getWord() + "] contains spaces.");
 					}
 					return inflection;
-				}).forEach(consumer);
+				}).forEachOrdered(consumer);
 
 		inflectionByRule.entrySet().stream().forEach(entry -> {
 			LOGGER.info(entry.getKey() + "---->" + entry.getValue().size());
