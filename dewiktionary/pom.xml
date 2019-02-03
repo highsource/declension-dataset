@@ -10,6 +10,11 @@
 	</parent>
 	<dependencies>
 		<dependency>
+			<groupId>org.hisrc.declension</groupId>
+			<artifactId>declension-dataset-dereko</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+		<dependency>
 			<groupId>org.dkpro.jwktl</groupId>
 			<artifactId>dkpro-jwktl</artifactId>
 		</dependency>
