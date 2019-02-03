@@ -34,6 +34,16 @@
 	<dependencyManagement>
 		<dependencies>
 			<dependency>
+				<groupId>org.hisrc.declension</groupId>
+				<artifactId>declension-dataset-dereko</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.hisrc.declension</groupId>
+				<artifactId>declension-dataset-dewiktionary</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+			<dependency>
 				<groupId>org.dkpro.jwktl</groupId>
 				<artifactId>dkpro-jwktl</artifactId>
 				<version>1.1.1-SNAPSHOT</version>
