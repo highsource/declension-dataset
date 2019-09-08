@@ -32,7 +32,7 @@ public class GenericJsonSerializer<T> {
 			throw new IllegalStateException();
 		} else {
 			os = new FileOutputStream(ouputFile);
-			sequenceWriter = mapper.writerFor(Inflection.class).withDefaultPrettyPrinter().writeValuesAsArray(os);
+			sequenceWriter = mapper.writerFor(type).withDefaultPrettyPrinter().writeValuesAsArray(os);
 		}
 	}
 
