@@ -1,0 +1,12 @@
+{
+  "name": "declension-dataset-dynamodb-import",
+  "version": "1.0.0",
+  "main": "index.js",
+  "author": {
+    "name": "Alexey Valikov",
+    "url": "http://github.com/highsource"
+  },
+  "dependencies": {
+    "aws-sdk": "latest"
+  }
+}
