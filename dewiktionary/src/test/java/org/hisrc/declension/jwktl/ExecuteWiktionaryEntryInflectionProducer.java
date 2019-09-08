@@ -12,12 +12,12 @@ import java.util.Map;
 import java.util.Set;
 import java.util.TreeSet;
 import java.util.concurrent.atomic.AtomicInteger;
-
-import javax.print.attribute.HashAttributeSet;
+import java.util.stream.Collectors;
 
 import org.hisrc.declension.dto.GrammaticalCaseSuffices;
 import org.hisrc.declension.dto.Inflection;
 import org.hisrc.declension.dto.InflectionGroup;
+import org.hisrc.declension.dto.Inflections;
 import org.hisrc.declension.jackson.databind.GenericJsonSerializer;
 import org.hisrc.dereko.DerewoWordBasisFormListProvider;
 import org.hisrc.dereko.dto.DerewoWordBasisFormListEntry;
@@ -39,7 +39,7 @@ public class ExecuteWiktionaryEntryInflectionProducer {
 		File outputFile = new File("dataset.json");
 		File outputCsvFile = new File("dataset.csv");
 		final FileWriter few = new FileWriter(outputCsvFile);
-		final GenericJsonSerializer<Inflection> serializer = new GenericJsonSerializer<>(Inflection.class, outputFile);
+		final GenericJsonSerializer<Inflections> serializer = new GenericJsonSerializer<>(Inflections.class, outputFile);
 		serializer.start();
 
 		final Map<GrammaticalCaseSuffices, AtomicInteger> singularSuffices = new HashMap<>();
@@ -81,7 +81,6 @@ public class ExecuteWiktionaryEntryInflectionProducer {
 
 			final String word = inflection.getWord();
 
-			serializer.serialize(inflection);
 			try {
 				if (words.add(word)) {
 					count.incrementAndGet();
@@ -95,6 +94,8 @@ public class ExecuteWiktionaryEntryInflectionProducer {
 			inflection.getPlural().stream().map(InflectionGroup::getSuffixes)
 					.forEach(s -> pluralSuffices.computeIfAbsent(s, key -> new AtomicInteger()).incrementAndGet());
 		});
+		
+		inflections.stream().collect(Collectors.groupingBy(Inflection::getWord)).entrySet().stream().map(en -> new Inflections(en.getKey(), en.getValue())).forEach(serializer::serialize);
 
 		few.close();
 		serializer.end();
