@@ -18,7 +18,7 @@ import de.tudarmstadt.ukp.jwktl.api.util.GrammaticalCase;
 import de.tudarmstadt.ukp.jwktl.api.util.GrammaticalGender;
 
 public class InflectionGroupBuilder {
-	private static final List<String> SINGLE_EMPTY_STRING = Collections.unmodifiableList(Arrays.asList(""));
+	private static final List<String> SINGLE_EMPTY_STRING = Collections.unmodifiableList(Arrays.asList("-"));
 
 	private final InflectionGroupId inflectionGroupId;
 	private final GrammaticalGender grammaticalGender;
@@ -125,10 +125,10 @@ public class InflectionGroupBuilder {
 
 			final String root = wordForms.getCommonPrefix();
 
-			List<String> n = nominative.stream().map(s -> s.substring(root.length())).collect(Collectors.toList());
-			List<String> g = genitive.stream().map(s -> s.substring(root.length())).collect(Collectors.toList());
-			List<String> d = dative.stream().map(s -> s.substring(root.length())).collect(Collectors.toList());
-			List<String> a = accusative.stream().map(s -> s.substring(root.length())).collect(Collectors.toList());
+			List<String> n = nominative.stream().map(s -> s.substring(root.length())).map(s -> "".equals(s) ? "-" : s).collect(Collectors.toList());
+			List<String> g = genitive.stream().map(s -> s.substring(root.length())).map(s -> "".equals(s) ? "-" : s).collect(Collectors.toList());
+			List<String> d = dative.stream().map(s -> s.substring(root.length())).map(s -> "".equals(s) ? "-" : s).collect(Collectors.toList());
+			List<String> a = accusative.stream().map(s -> s.substring(root.length())).map(s -> "".equals(s) ? "-" : s).collect(Collectors.toList());
 
 			n = n.equals(SINGLE_EMPTY_STRING) ? null : n;
 			g = g.equals(SINGLE_EMPTY_STRING) ? null : g;
