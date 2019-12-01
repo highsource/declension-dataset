@@ -45,7 +45,7 @@ public class InflectionBuilder {
 		List<InflectionGroup> plural = getInflectionGroups(GrammaticalNumber.PLURAL).stream()
 				.map(InflectionGroupBuilder::build).filter(Objects::nonNull).collect(Collectors.toList());
 		
-		return new Inflection(entry.getWord(), getDeterminatum(), singular, plural);
+		return new Inflection(entry.getWord().toLowerCase(), getDeterminatum(), singular, plural);
 	}
 	
 	public String getDeterminatum()  {

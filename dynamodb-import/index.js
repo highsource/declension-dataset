@@ -1,5 +1,5 @@
 var AWS = require('aws-sdk');
-AWS.config.update({region: 'eu-west-1'});
+AWS.config.update({region: 'eu-central-1'});
 var dataset = require("./dataset");
 console.log("Total number of entries:" + dataset.length);
 
